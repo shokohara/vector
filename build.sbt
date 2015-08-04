@@ -16,5 +16,6 @@ libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.2.5",
   "org.typelevel" %% "shapeless-scalacheck" % "0.4",
   "org.typelevel" %% "shapeless-spire" % "0.4",
-  "org.typelevel" %% "shapeless-scalaz" % "0.4"
+  "org.typelevel" %% "shapeless-scalaz" % "0.4",
+  "org.spire-math" %% "spire" % "0.10.1"
 )

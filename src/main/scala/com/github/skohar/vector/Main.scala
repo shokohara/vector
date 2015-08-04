@@ -2,6 +2,8 @@ package com.github.skohar.vector
 
 import shapeless.HList._
 import shapeless._
+import spire.math.Integral
+import spire.implicits._
 
 trait Semigroup[S] {
   def append(s1: S, s2: S): S
@@ -10,6 +12,27 @@ trait Semigroup[S] {
 case class Vector3D(x: Int, y: Int, z: Int)
 
 object Main {
+
+  trait Addable[A] {
+    // Both arguments must be provided. Addable works with the type A, but
+    // does not extend it.
+    def plus(x: A, y: A): A
+  }
+
+  // This class adds the + operator to any type A that is Addable,
+  // by delegating to that Addable's `plus` method.
+  implicit class AddableOps[A](lhs: A)(implicit ev: Addable[A]) {
+    def +(rhs: A): A = ev.plus(lhs, rhs)
+  }
+
+  // We use a context bound to require that A has an Addable instance.
+  def add[A: Addable](x: A, y: A): A = x + y
+
+  implicit object IntIsAddable extends Addable[Int] {
+    def plus(x: Int, y: Int): Int = x + y
+  }
+
+  def euclidGcd[A <: Integral](x: A, y: A): A = if (y == 0) x else euclidGcd(y, x % y)
 
   def plus[A](a: A, b: A)(implicit semigroup: Semigroup[A]) = semigroup.append(a, b)
 
@@ -38,5 +61,6 @@ object Main {
   def main(args: Array[String]) {
     println(plus(1 :: 3 :: HNil, 2 :: 4 :: HNil))
     println(plus(Vector3D(1, 2, 3), Vector3D(1, 2, 3)))
+    println(add(5, 4))
   }
 }
