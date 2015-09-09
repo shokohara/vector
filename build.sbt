@@ -1,4 +1,4 @@
-name := "vector"
+name := "train"
 
 version := "1.0.0-SNAPSHOT"
 
@@ -17,5 +17,6 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "shapeless-scalacheck" % "0.4",
   "org.typelevel" %% "shapeless-spire" % "0.4",
   "org.typelevel" %% "shapeless-scalaz" % "0.4",
-  "org.spire-math" %% "spire" % "0.10.1"
+  "org.spire-math" %% "spire" % "0.10.1",
+  "nz.ac.waikato.cms.weka" % "weka-stable" % "3.6.6"
 )
